@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+	<head>
+    {%load staticfiles%}
+	<title>梅賽德斯·奔馳-2018 Chinese New Year</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+		<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1, user-scalable=no, maximum-scale=1, height=device-height">
+		<link rel="shortcut icon" type="image/png" href="{%static 'img/prizeWheelApp/favicon.png' %}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="{%static 'css/prizeWheelApp/style.css'%}" />
+		
+		<script src="http://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous" defer></script>
+	</head>
+	<body>
+		<header>
+			<img src="{%static 'img/prizeWheelApp/logo.png'%}" alt="Mercedes-Benz">
+		</header>
+        {%block content%}
+        {% endblock %}
+		<footer>
+			<p>Copyright &copy; Mercedes-Benz Vancouver Retail Group</p>
+			<!-- <p><a href="http://thinko.ca/">Powered by Thinko Technology LTD.</a></p> -->
+		</footer>
+
+        {%block scripts%}
+        {% endblock %}
+	</body>
+</html>
+
