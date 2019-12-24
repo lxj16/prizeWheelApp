@@ -1,4 +1,6 @@
-{% extends "./base.html" %} {% block content%}
+{% extends "./base.html" %} 
+{% load static %}
+{% block content%}
 <main>
   <div class="main-img-wrapper home-img-wrapper">
     <h3>梅賽德斯·奔馳 祝您</h3>
@@ -8,12 +10,15 @@
   <h2>歡迎光臨梅賽德斯·奔馳 列治文店</h2>
   <div id="content">
     <!-- todo: if you want to submit using form -->
-    <form action="@todo: Raphael, fill this">
+    <form method="post" action="">
       <div class="input-wrapper blue">
-        <input placeholder="請于此處填寫手機號碼以參與抽獎" />
+        {% comment %} <input type=number placeholder="請于此處填寫手機號碼以參與抽獎" name='phoneNumber' id='phoneNumber'> {% endcomment %}
+         {%csrf_token%}
+          {{form.as_p}}
+        <input type="submit" class="btn home-btn" value='進入抽獎' id='submit-btn' readonly/>
       </div>
+
       <div>
-        <button type="submit" class="btn home-btn">進入抽獎</button>
       </div>
       <div>
         <!-- todo:oscar add terms&condition link, if we have it -->
@@ -26,9 +31,11 @@
     </form>
   </div>
 </main>
+{% endblock %} 
 
 {%block scripts%}
-<script>
-  console.log("st");
-</script>
-{% endblock %} {% endblock%}
+
+
+<script src="{%static 'script/index.js' %}" defer></script>
+{% endblock%}
+
