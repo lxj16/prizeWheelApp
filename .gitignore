@@ -5,4 +5,3 @@ __pycache__/
 local_settomgs.py
 db.sqlite3
 media
-/static
