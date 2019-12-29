@@ -12,7 +12,7 @@ class Prize(models.Model):
 
 
 class User(models.Model):
-    phoneNumber = models.CharField(max_length=10,primary_key=True, unique=True)
+    phoneNumber = models.CharField(max_length=10, unique=True)
     rolled = models.BooleanField(default=False)
 
     def __str__(self):
@@ -20,8 +20,9 @@ class User(models.Model):
 
 
 class Winner(models.Model):
-    phoneNumber = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     prize = models.ForeignKey(Prize, on_delete=models.DO_NOTHING)
+    phoneNumber = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
         return f'Winner with phone number: {self.userID} won a prize with id: {self.prizeID }'

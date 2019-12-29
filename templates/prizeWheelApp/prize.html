@@ -28,11 +28,12 @@
         
 		<script>
 			let prizeID = {{prize.id}}
-			console.log(prizeID)
+			
 			//scroll page to bottom
 			$(document).ready(function() {
 			  $("html, body").animate({ scrollTop: $(document).height() }, 1000);
 			  $('.main-img-wrapper').attr('style', 'background-image: url('+'{%static "img/prizeWheelApp/" %}'+prizeID+'.png); max-width:23%;');
 			});
 		</script>
+		<script src="{%static 'script/prize.js'%}"></script>
 {% endblock %}
