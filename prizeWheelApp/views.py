@@ -107,11 +107,11 @@ def getResult(request):
     result = random.random()
 
     if result > 0.05 and result < 0.08:
-        prizeID = 2
+        prizeID = 1
     elif (result > 0.25 and result < 0.28):
         prizeID = 2
     elif (result > 0.15 and result < 0.18):
-        prizeID = 2
+        prizeID = 3
     elif (result > 0.35 and result < 0.38):
         prizeID = 4
     elif (result > 0.55 and result < 0.57):
@@ -119,13 +119,13 @@ def getResult(request):
     elif (result > 0.65 and result < 0.66):
         prizeID = 6
     else:
-        prizeID = 2
+        prizeID = 7
 
     prize = Prize.objects.get(pk=prizeID)
 
     if prize.quantity <= 0:
         prizeID = 7
-    print(prizeID)
+    
     prizeID = {'prizeID': prizeID}
     request.session['rolled'] = True
     request.session.save()
