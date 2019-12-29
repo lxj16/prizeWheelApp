@@ -30,21 +30,17 @@ class Index(View):
                 phoneNumber = form.cleaned_data['phone']
                 # phoneNumber = request.POST.get['phone']
                 print(phoneNumber)
-                
+
                 if User.objects.filter(phoneNumber=phoneNumber).exists():
                     return redirect('participated')
                 else:
                     newUser = User(phoneNumber=phoneNumber)
                     newUser.save()
                     request.session['phoneNumber'] = phoneNumber
-                    
 
                     return redirect('turnTable', phoneNumber=phoneNumber)
 
         return redirect('index')
-
-
-
 
 
 class TurnTable(View):
@@ -57,11 +53,10 @@ class TurnTable(View):
                 if User.objects.get(phoneNumber=phoneNumber).rolled == True:
                     return redirect('participated')
                 else:
-                    User.objects.filter(phoneNumber=phoneNumber).update(rolled=True)
+                    User.objects.filter(
+                        phoneNumber=phoneNumber).update(rolled=True)
                     prize = Prize.objects.all()
                     context = {'phoneNumber': phoneNumber, 'prize': prize}
-
-
 
                     return render(request, 'prizeWheelApp/turntable.html', context)
         except:
@@ -69,7 +64,7 @@ class TurnTable(View):
 
 
 def noPrize(request):
-    try: 
+    try:
         phoneNumber = request.session['phoneNumber']
         clearSession(request)
 
@@ -85,17 +80,18 @@ def participated(request):
 
 class PrizeView(View):
 
-    def get(self,request, prizeID):
+    def get(self, request, prizeID):
         try:
-            
+
             prize = Prize.objects.get(pk=prizeID)
             phoneNumber = request.session['phoneNumber']
             user = User.objects.get(phoneNumber=phoneNumber)
 
             quantityBefore = prize.quantity
 
-            Prize.objects.filter(pk=prizeID).update(quantity= quantityBefore -1)
-            winner = Winner(prize=prize,user=user, phoneNumber=phoneNumber)
+            Prize.objects.filter(pk=prizeID).update(
+                quantity=quantityBefore - 1)
+            winner = Winner(prize=prize, user=user, phoneNumber=phoneNumber)
             winner.save()
 
             clearSession(request)
@@ -103,9 +99,8 @@ class PrizeView(View):
             context = {'prize': prize, 'phoneNumber': phoneNumber}
             return render(request, 'prizeWheelApp/prize.html', context)
         except:
-            return redirect('participated')
+            return redirect('index')
 
-    
 
 def getResult(request):
 
@@ -117,9 +112,9 @@ def getResult(request):
         prizeID = 2
     elif (result > 0.15 and result < 0.18):
         prizeID = 2
-    elif (result > 0.35 and result < 0.38): 
+    elif (result > 0.35 and result < 0.38):
         prizeID = 4
-    elif (result > 0.55 and result < 0.57): 
+    elif (result > 0.55 and result < 0.57):
         prizeID = 5
     elif (result > 0.65 and result < 0.66):
         prizeID = 6
@@ -132,13 +127,11 @@ def getResult(request):
         prizeID = 7
     print(prizeID)
     prizeID = {'prizeID': prizeID}
+    request.session['rolled'] = True
+    request.session.save()
     return JsonResponse(prizeID)
 
 
-        
 def clearSession(request):
     for key in list(request.session.keys()):
         del request.session[key]
-
-
-
